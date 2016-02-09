@@ -1,5 +1,7 @@
 == README
 
+This is a basic rails app with devise authentication for users. Use this as a starting point for any app that requires basic authentication.
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
