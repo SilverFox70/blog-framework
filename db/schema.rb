@@ -11,10 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209164634) do
+ActiveRecord::Schema.define(version: 20160222044839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.boolean  "leave_message"
+    t.text     "message_explanation"
+    t.string   "email"
+    t.string   "email_confirm"
+    t.integer  "age"
+    t.text     "how_found"
+    t.date     "date"
+    t.time     "time"
+    t.text     "why_session"
+    t.string   "reference_name"
+    t.string   "reference_email"
+    t.string   "reference_phone"
+    t.string   "reference_link"
+    t.text     "reference_identifier"
+    t.string   "social_link_1"
+    t.string   "social_link_2"
+    t.boolean  "service_agreement"
+    t.boolean  "cancellation_policy"
+    t.string   "spam_question"
+    t.boolean  "location_aware"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
