@@ -1,29 +1,29 @@
 == README
 
-This is a basic rails app with devise authentication for users. Use this as a starting point for any app that requires basic authentication.
+This is a skeleton rails app with devise authentication for users. Use this as a starting point for any app that requires basic authentication.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get started, clone this repo to your local system.
 
-Things you may want to cover:
+Run <tt>bundler</tt> to install all of the necessary gems.  
 
-* Ruby version
+Run <tt>rake db:create</tt>
 
-* System dependencies
+Run <tt>rake db:migrate</tt>
 
-* Configuration
+Run <tt>rails g devise:views</tt>
 
-* Database creation
+Navigate to <tt>app/views/welcome</tt> and open <tt>index.html.erb</tt> in your text editor.
+For you own sanity, add a "Welcome to rails with auth!" line in that file and save.
 
-* Database initialization
+Start your rails server <tt>rails s</tt>
 
-* How to run the test suite
+Point your browser to <tt>localhost:3000</tt> and you should see your message.
 
-* Services (job queues, cache servers, search engines, etc.)
+To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or open a new bash window (<tt>COMMAND </tt>)
 
-* Deployment instructions
+You are now ready to build the rest of your app - Enjoy!
 
-* ...
+
 
 
 Please feel free to use a different markup language if you do not plan to run
