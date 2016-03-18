@@ -19,7 +19,7 @@ Start your rails server <tt>rails s</tt>
 
 Point your browser to <tt>localhost:3000</tt> and you should see your message.
 
-To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or open a new bash window (<tt>COMMAND </tt>)
+To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or open a new bash window (<tt>COMMAND t</tt>)
 
 You are now ready to build the rest of your app - Enjoy!
 
