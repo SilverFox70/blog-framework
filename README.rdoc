@@ -21,6 +21,36 @@ Point your browser to <tt>localhost:3000</tt> and you should see your message.
 
 To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or open a new bash window (<tt>COMMAND t</tt>)
 
+For ActiveAdmin the gem is set to <tt>gem 'activeadmin', github: 'activeadmin'</tt> which will track the master.
+
+The ActiveAdmin gem integrates with:
+<tt>gem 'devise'</tt>
+<tt>gem 'cancan'</tt>
+<tt>gem 'draper'</tt>
+<tt>gem 'pundit'</tt>
+
+If you wish to link admin to the existing User class:
+<tt>rails g active_admin:install User</tt>
+
+To create a separate AdminUser class:
+<tt>rails g active-admin:install</tt>
+
+Next, migrate and seed the database:
+<tt>rake db:migrate</tt>
+<tt>rake db:seed</tt>
+<tt>rails s</tt>
+
+No you can visit <tt>http:/localhost:3000/admin</tt> and login as the default user:
+
+User = admin@example.com
+Password = password
+
+To register and thus manage models through the admin interface:
+<tt>rails g active_admin:resource MyModel</tt>
+
+For more information on ActiveAdmin, please visit: <tt>https://github.com/activeadmin/activeadmin</tt>
+
+
 You are now ready to build the rest of your app - Enjoy!
 
 
