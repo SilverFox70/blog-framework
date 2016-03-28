@@ -1,10 +1,12 @@
 == README
 
-This is a skeleton rails app with devise authentication for users. Use this as a starting point for any app that requires basic authentication.
+This is a skeleton rails app intended for creating your own blog, just in case you enjoy re-inventing the wheel.  There is Devise authentication for users and admins. When complete, users will be able to sign-in to leave comments while admins will be able to create blog posts and manage comments.
 
 To get started, clone this repo to your local system.
 
 Run <tt>bundler</tt> to install all of the necessary gems.  
+
+You may need to run the following: 
 
 Run <tt>rake db:create</tt>
 
@@ -13,7 +15,7 @@ Run <tt>rake db:migrate</tt>
 Run <tt>rails g devise:views</tt>
 
 Navigate to <tt>app/views/welcome</tt> and open <tt>index.html.erb</tt> in your text editor.
-For you own sanity, add a "Welcome to rails with auth!" line in that file and save.
+For you own sanity, add a "Welcome to rails-blog with auth!" line in that file and save.
 
 Start your rails server <tt>rails s</tt>
 
@@ -29,7 +31,8 @@ The ActiveAdmin gem integrates with:
 <tt>gem 'draper'</tt>
 <tt>gem 'pundit'</tt>
 
-If you wish to link admin to the existing User class:
+If you find that the User class is not linked to active_admin, then add the existing User class:
+
 <tt>rails g active_admin:install User</tt>
 
 To create a separate AdminUser class:
@@ -52,8 +55,6 @@ For more information on ActiveAdmin, please visit: <tt>https://github.com/active
 
 
 You are now ready to build the rest of your app - Enjoy!
-
-
 
 
 Please feel free to use a different markup language if you do not plan to run
