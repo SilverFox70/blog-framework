@@ -19,6 +19,7 @@
   <strong>Category:</strong>
   <%= @post.category %>
 </p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if admin_user_signed_in? %>
+	<%= link_to 'Edit', edit_post_path(@post) %> 
+<% end %>
 <%= link_to 'Back', posts_path %>
