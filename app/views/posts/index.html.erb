@@ -21,7 +21,7 @@
                   <p class="lead">
                       by <a href="index.php">SilverFox</a>
                   </p>
-                  <p><span class="glyphicon glyphicon-time"></span><%= post.date %></p>
+                  <p><span class="glyphicon glyphicon-time"></span><%= post.created_at.to_formatted_s(:long_ordinal) %></p>
                   <hr>
                   <img class="img-responsive" src="http://placehold.it/900x300" alt="">
                   <hr>
