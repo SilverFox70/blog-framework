@@ -12,6 +12,10 @@ ActiveAdmin.register Post do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+def create
+	@auth_error = "You are not authorized to make this request." unless admin_user_signed_in?
+end
+
 permit_params :title, :date, :content, :category
 
 end
