@@ -3,7 +3,7 @@
 
 	<%= render 'form' %>
 <% else %>
-
+	<p class="forbidden"><%= @auth_error %></p>
 	<p class="forbidden">You are not authorized to view this page. <p>
 
 <% end %>
