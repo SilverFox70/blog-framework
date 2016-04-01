@@ -1,12 +1,12 @@
 class PostsController < InheritedResources::Base
 
 	def index
-		puts "-" * 30
-		puts params
-		puts "-" * 30
+		@categories = category_list
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
+		# Set scope of the posts we will look at
+		set_posts_scope(params[:category])
 		# if no start params given, then return the 3 most
 		# recent posts; otherwise, get the most recent posts
 		# offset by :start e.g. start = -3, get the fourth
@@ -35,12 +35,32 @@ class PostsController < InheritedResources::Base
 
   private
 
+  	def set_posts_scope(category)
+  		if category.nil? || category == "All"
+  			@posts = Post.all
+  		else
+  			@posts = Post.where(:category => category)
+  		end
+  		@posts
+  	end
+
+  	def category_list
+  		cat_list = []
+  		posts = Post.all
+  		posts.each do |post|
+  			if !cat_list.include?(post.category)
+  				cat_list << post.category
+  			end
+	  	end
+	  	cat_list
+  	end
+
   	def get_upper_limit
-  		Post.order(:id).last.id - 2
+  		@posts.order(:id).last.id - 2
   	end
 
   	def get_posts_from(start, stop)
-  		Post.where(:id => start..stop).order("id desc")
+  		@posts.where(:id => start..stop).order("id desc")
   	end
 
     def post_params
