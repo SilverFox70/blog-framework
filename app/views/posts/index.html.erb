@@ -32,12 +32,16 @@
 
                 <!-- Pager -->
                 <ul class="pager">
+                  <% if @start > 1 %>
                     <li class="previous">
                       <%= link_to raw("&larr; Older"), posts_path(start: @start - 3) %>
                     </li>
+                  <% end %>
+                  <% if !@limit %>
                     <li class="next">
                       <%= link_to raw("Newer &rarr;"), posts_path(start: @start + 3) %>
                     </li>
+                  <% end %>
                 </ul>
 
             </div>
