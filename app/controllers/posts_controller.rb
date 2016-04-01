@@ -1,6 +1,9 @@
 class PostsController < InheritedResources::Base
 
 	def index
+		puts "** " * 20
+		puts params
+		puts "** " * 20
 		@categories = category_list
 		@columns = two_columns?(@categories.length)
 		@columns ? @split_at = column_size(@categories.length) : @split_at = 3

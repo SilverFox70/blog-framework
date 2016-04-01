@@ -16,3 +16,11 @@
  *= require bootstrap
  *= require blog-home
  */
+
+ .search-group {
+ 	display: inline !important;
+ }
+
+ .search-button {
+ 	padding: 10px !important;
+ }
