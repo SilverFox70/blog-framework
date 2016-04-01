@@ -13,9 +13,9 @@ class PostsController < InheritedResources::Base
 		# fifth, and sixth most recent posts. :start must 
 		# track through each call.
 		if params[:start].nil?
-			@start = Post.order(:id).last.id - 2
+			@start = get_upper_limit
 			stop = @start + 3
-			@posts = Post.where(:id => @start..stop).order("id desc")
+			@posts = get_posts_from(@start, stop)
 			@limit = true
 		else @start = params[:start].to_i 
 			# if @start is less than 1, set @start = 1
@@ -24,16 +24,24 @@ class PostsController < InheritedResources::Base
 			if @start < 1
 				@start = 1
 				stop = @start + 2
-			elsif @start > (Post.order(:id).last.id - 2)
-				@start = Post.order(:id).last.id - 2
+			elsif @start > get_upper_limit
+				@start = get_upper_limit
 				@limit = true
 			end
 			stop = @start + 2
-			@posts = Post.where(:id => @start..stop).order("id desc")
+			@posts = get_posts_from(@start, stop)
 		end
 	end
 
   private
+
+  	def get_upper_limit
+  		Post.order(:id).last.id - 2
+  	end
+
+  	def get_posts_from(start, stop)
+  		Post.where(:id => start..stop).order("id desc")
+  	end
 
     def post_params
       params.require(:post).permit(:title, :date, :content, :category)
