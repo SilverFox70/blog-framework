@@ -6,10 +6,11 @@ This is a skeleton rails app intended for creating your own blog, just in case y
 === Blog Home Page - (views/posts/index.html.erb)
 
 Currently this will display excerpts from the three most recent posts based on post.id, not the actual
-created_at time.  "Previous" and "Next" buttons will appear at the bottom of this last as is appropriate,
+created_at time.  "Previous" and "Next" buttons will appear at the bottom of this list as is appropriate,
 allowing you to navigate through the entire list of posts.
 
 == Getting Started 
+
 [Needs updating as you don't actually need to do all of these steps to get up and running]
 
 To get started, clone this repo to your local system.
