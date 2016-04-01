@@ -2,6 +2,8 @@ class PostsController < InheritedResources::Base
 
 	def index
 		@categories = category_list
+		@columns = two_columns?(@categories.length)
+		@columns ? @split_at = column_size(@categories.length) : @split_at = 4
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
@@ -34,6 +36,18 @@ class PostsController < InheritedResources::Base
 	end
 
   private
+
+  	def two_columns?(number_of_cats)
+  		number_of_cats > 3
+  	end
+
+  	def column_size(number_of_cats)
+  		split_point = 3
+  		if number_of_cats > 7
+  			number_of_cats % 2 != 0 ? split_point = number_of_cats / 2 : split_point = (number_of_cats / 2) + 1
+  		end
+
+  	end
 
   	def set_posts_scope(category)
   		if category.nil? || category == "All"
