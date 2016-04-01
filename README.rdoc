@@ -1,15 +1,15 @@
-== README
+= README
 
 This is a skeleton rails app intended for creating your own blog, just in case you enjoy re-inventing the wheel.  There is Devise authentication for users and admins. When complete, users will be able to sign-in to leave comments while admins will be able to create blog posts and manage users and their comments.
 
-## A Tour of Your Views and Functionality
-### Blog Home Page - (views/posts/index.html.erb)
+== A Tour of Your Views and Functionality
+=== Blog Home Page - (views/posts/index.html.erb)
 
 Currently this will display excerpts from the three most recent posts based on post.id, not the actual
 created_at time.  "Previous" and "Next" buttons will appear at the bottom of this last as is appropriate,
 allowing you to navigate through the entire list of posts.
 
-## Getting Started 
+== Getting Started 
 [Needs updating as you don't actually need to do all of these steps to get up and running]
 
 To get started, clone this repo to your local system.
