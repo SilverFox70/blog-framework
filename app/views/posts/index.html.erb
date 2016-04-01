@@ -14,7 +14,7 @@
                 </h1>
 
                 <!-- Blog Post List -->
-                <% @posts.order("id asc").limit(3).each do |post| %>
+                <% @posts.each do |post| %>
                   <h2>
                       <%= link_to post.title, post %>
                   </h2>
@@ -33,11 +33,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="previous">
-                        <a href="#">&larr; Older</a>
-                        <%= link_to raw("&larr; Older"), posts_path(start: -3) %>
+                      <%= link_to raw("&larr; Older"), posts_path(start: @start - 3) %>
                     </li>
                     <li class="next">
-                        <a href="#">Newer &rarr;</a>
+                      <%= link_to raw("Newer &rarr;"), posts_path(start: @start + 3) %>
                     </li>
                 </ul>
 
