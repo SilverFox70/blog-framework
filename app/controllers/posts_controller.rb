@@ -3,7 +3,7 @@ class PostsController < InheritedResources::Base
 	def index
 		@categories = category_list
 		@columns = two_columns?(@categories.length)
-		@columns ? @split_at = column_size(@categories.length) : @split_at = 4
+		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
@@ -16,7 +16,7 @@ class PostsController < InheritedResources::Base
 		# track through each call.
 		if params[:start].nil?
 			@start = get_upper_limit
-			stop = @start + 3
+			stop = @start + 2
 			@posts = get_posts_from(@start, stop)
 			@limit = true
 		else @start = params[:start].to_i 
@@ -26,7 +26,7 @@ class PostsController < InheritedResources::Base
 			if @start < 1
 				@start = 1
 				stop = @start + 2
-			elsif @start > get_upper_limit
+			elsif @start >= get_upper_limit
 				@start = get_upper_limit
 				@limit = true
 			end
@@ -46,7 +46,7 @@ class PostsController < InheritedResources::Base
   		if number_of_cats > 7
   			number_of_cats % 2 != 0 ? split_point = number_of_cats / 2 : split_point = (number_of_cats / 2) + 1
   		end
-
+  		split_point
   	end
 
   	def set_posts_scope(category)
