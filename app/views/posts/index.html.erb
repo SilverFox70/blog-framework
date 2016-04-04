@@ -53,9 +53,9 @@
                 <div class="well">
                     <h4>Blog Search</h4>
                     <div class="input-group search-group">
-                      <%= form_tag(posts_path, method: :get) do %>
-                        <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
-                        <%= submit_tag "Search", class: "search-button" %>
+                      <%= search_form_for @search do |f| %>
+                        <%= f.text_field :title_or_content_cont,  placeholder: "Search Posts" %>
+                        <%= f.submit "Search", class: "search-button" %>
                       <% end %>
                     </div>
                     <!-- /.input-group -->
