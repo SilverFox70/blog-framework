@@ -11,8 +11,8 @@ class PostsController < InheritedResources::Base
 		# at the last available post
 		@limit = false
 		# Set scope of the posts we will look at
-		if params[:commit] = "Search"
-			@search = Post.search(params[:q])
+		@search = Post.search(params[:q])
+		if params[:commit] == "Search"
 			@posts = @search.result
 			puts "** " * 20
 			puts @posts
@@ -44,6 +44,24 @@ class PostsController < InheritedResources::Base
 			stop = @start + 2
 			@posts = get_posts_from(@start, stop)
 		end
+	end
+
+	def show
+		puts "=*=" * 20
+		puts params
+		puts "=*=" * 20
+		@categories = category_list
+		@columns = two_columns?(@categories.length)
+		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
+		@search = Post.search(params[:q])
+		if params[:commit] == "Search"
+			@posts = @search.result
+			puts "===" * 20
+			puts @posts
+			puts "===" * 20
+			render action: "index"
+		end
+		@post = Post.find(params[:id])
 	end
 
   private
