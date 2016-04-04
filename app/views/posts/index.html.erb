@@ -26,7 +26,7 @@
                   <img class="img-responsive" src="http://placehold.it/900x300" alt="">
                   <hr>
                   <p><%= sanitize(excerpt(post.content," ", radius: 240))%></p>
-                  <a class="btn btn-primary" href="<%=post.id%>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                  <a class="btn btn-primary" href="posts/<%=post.id%>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 <% end %>
                 <hr>
 
