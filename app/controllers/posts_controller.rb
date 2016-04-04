@@ -12,7 +12,8 @@ class PostsController < InheritedResources::Base
 		@limit = false
 		# Set scope of the posts we will look at
 		if params[:commit] = "Search"
-			@posts = Post.search(params[:search]).result
+			@search = Post.search(params[:q])
+			@posts = @search.result
 			puts "** " * 20
 			puts @posts
 			puts "** " * 20
