@@ -11,7 +11,14 @@ class PostsController < InheritedResources::Base
 		# at the last available post
 		@limit = false
 		# Set scope of the posts we will look at
-		set_posts_scope(params[:category])
+		if params[:commit] = "Search"
+			@posts = Post.search(params[:search]).result
+			puts "** " * 20
+			puts @posts
+			puts "** " * 20
+		else
+			set_posts_scope(params[:category])
+		end
 		# if no start params given, then return the 3 most
 		# recent posts; otherwise, get the most recent posts
 		# offset by :start e.g. start = -3, get the fourth

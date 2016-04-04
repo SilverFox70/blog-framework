@@ -16,6 +16,11 @@ def create
 	@auth_error = "You are not authorized to make this request." unless admin_user_signed_in?
 end
 
+def self.search(search)
+	where("title LIKE ?", "%#{search}")
+	where("content LIKE ?", "%#{search}")
+end
+
 permit_params :title, :date, :content, :category
 
 end
