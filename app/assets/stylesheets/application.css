@@ -28,3 +28,15 @@
  .roomy {
  	line-height: 140%;
  }
+
+ .comment-buffer {
+ 	background-color: rgba(0, 0, 255, .2);
+ 	border-style: solid;
+ 	border-width: 1px 0px 1px 0px;
+ 	border-color: blue;
+
+ }
+
+ .sgn-com {
+ 	padding: 10px;
+ }
