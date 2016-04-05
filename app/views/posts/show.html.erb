@@ -44,6 +44,7 @@
 
 			
 				<!-- Comments form -->
+				<% if current_user %>
 				<div class="well">
 					<h4>Leave a Comment:</h4>
 					<form>
@@ -53,6 +54,11 @@
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>
+				<% else %>
+				<hr>
+				<p><%= link_to("Sign in", "/users/sign_in") %> to leave a comment.</p>
+				<hr>
+				<% end %>
 
 				<!-- Posted Comments -->
 				<!-- Comment -->
@@ -66,6 +72,7 @@
 						</h4>
 						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 					</div><!-- /.media-body -->
+					<hr>
 				</div><!-- /.media -->
 			</div><!--/.col-md-8 -->	
 
