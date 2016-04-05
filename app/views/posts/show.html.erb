@@ -55,9 +55,9 @@
 					</form>
 				</div>
 				<% else %>
-				<hr>
-				<p><%= link_to("Sign in", "/users/sign_in") %> to leave a comment.</p>
-				<hr>
+				<div class="comment-buffer">
+					<p class="sgn-com"><%= link_to("Sign in", "/users/sign_in") %> to leave a comment.</p>
+				</div>
 				<% end %>
 
 				<!-- Posted Comments -->
