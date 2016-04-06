@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :comments
+  resources :posts do
+    resources :comments
+  end
+    
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
@@ -41,8 +45,7 @@ Rails.application.routes.draw do
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
-  #     resources :comments
-  #     resources :sales do
+  #     #     resources :sales do
   #       get 'recent', on: :collection
   #     end
   #   end
