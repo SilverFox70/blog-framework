@@ -93,7 +93,7 @@
 										<p class="lead"><%= simple_format(comment.body) %></p>
 									</div><!-- /.media-body -->
 									<% if current_user.id == comment.user_id %>
-										<%= link_to("Edit", "/comments/#{comment.id}/edit") %>
+										<%= link_to("Edit", "/posts/#{@post.id}/comments/#{comment.id}/edit") %>
 										<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, data: { confirm: "Are you sure?"}) %>
 									<% end %>
 							<hr>
