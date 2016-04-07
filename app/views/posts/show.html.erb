@@ -96,13 +96,13 @@
 										<p class="lead"><%= simple_format(comment.body) %></p>
 									</div><!-- /.media-body -->
 									<% if current_user && current_user.id == comment.user_id %>
-										<%= link_to("Edit", "/posts/#{@post.id}/comments/#{comment.id}/edit") %>
-										<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, data: { confirm: "Are you sure?"}) %>
+										<%= link_to("<i class=\"glyphicon glyphicon-pencil\"></i> Edit".html_safe, "/posts/#{@post.id}/comments/#{comment.id}/edit", class: "btn btn-default") %>
+										<%= link_to("<i class=\"glyphicon glyphicon-exclamation-sign\"></i> Delete".html_safe, "/comments/#{comment.id}", method: :delete, class: "btn btn-default",data: { confirm: "Are you sure?"}) %>
+									<% end %>
+									<% if admin_user_signed_in? %>
+										<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, class: "btn btn-danger",data:{ confirm: "Are you sure?"}) %>
 									<% end %>
 							<hr>
-						<% if admin_user_signed_in? %>
-							<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, data:{ confirm: "Are you sure?"}) %>
-						<% end %>
 						</div><!-- /.media -->
 					<% end %>
 				<% else %> 
