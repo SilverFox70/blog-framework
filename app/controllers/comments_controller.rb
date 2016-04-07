@@ -1,7 +1,7 @@
 class CommentsController < InheritedResources::Base
 
 	def index
-		redirect_to post_path unless admin_user_signed_in?
+		redirect_to posts_path(action: :index) unless admin_user_signed_in?
 		
 	end
 
@@ -12,15 +12,18 @@ class CommentsController < InheritedResources::Base
 	end
 
 	def edit
-		@comment = Comment.find(params[:id])
+		c = Comment.find_by_id(params[:id])
+		!c.nil? ? comment_author = c.user_id : comment_author = nil
+		if current_user && current_user.id == comment_author
+			@comment = Comment.find(params[:id])
+		else
+			redirect_to "/users/sign_in"
+		end
 	end
 
 	def show
 		@comment = Comment.find(params[:id])
 		@post = Post.find(@comment.post_id)
-		puts "===" * 30
-		puts "Hit the show controller for comments"
-		puts "===" * 30
 		redirect_to post_path(@post.id)
 	end
 

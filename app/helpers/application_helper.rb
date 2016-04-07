@@ -5,7 +5,8 @@ module ApplicationHelper
 		url = "http://gravatar.com/avatar/#{gravatar}.png?s=64"
 	end
 
-	def user_name
+	def current_user_name
 		current_user.email.split('@')[0]
 	end
+
 end
