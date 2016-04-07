@@ -29,7 +29,7 @@
 
 				<!-- Post Content -->
 				<p class="lead"><%= simple_format(@post.content) %></p>
-
+				<hr>
 				<!-- Post Category -->
 				<p>Category:
 				<%= @post.category %>
@@ -92,9 +92,16 @@
 										</h4>
 										<p class="lead"><%= simple_format(comment.body) %></p>
 									</div><!-- /.media-body -->
-					<% end %>
+									<% if current_user.id == comment.user_id %>
+										<%= link_to("Edit", "/comments/#{comment.id}/edit") %>
+										<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, data: { confirm: "Are you sure?"}) %>
+									<% end %>
 							<hr>
+						<% if admin_user_signed_in? %>
+							<%= link_to("Delete", destroy_comment_path, method: :delete, data:{ confirm: "Are you sure?"}) %>
+						<% end %>
 						</div><!-- /.media -->
+					<% end %>
 				<% else %> 
 				<h4>No comments yet...</h4>
 				<% end %>
