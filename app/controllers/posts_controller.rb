@@ -109,7 +109,7 @@ class PostsController < InheritedResources::Base
   	end
 
     def post_params
-      params.require(:post).permit(:title, :date, :content, :category)
+      params.require(:post).permit(:title, :date, :content, :category, :img_url)
     end
 end
 
