@@ -15,6 +15,15 @@ class CommentsController < InheritedResources::Base
 		@comment = Comment.find(params[:id])
 	end
 
+	def show
+		@comment = Comment.find(params[:id])
+		@post = Post.find(@comment.post_id)
+		puts "===" * 30
+		puts "Hit the show controller for comments"
+		puts "===" * 30
+		redirect_to post_path(@post.id)
+	end
+
   private
 
     def comment_params

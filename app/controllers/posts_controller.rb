@@ -1,9 +1,6 @@
 class PostsController < InheritedResources::Base
 
 	def index
-		puts "** " * 20
-		puts params
-		puts "** " * 20
 		@categories = category_list
 		@columns = two_columns?(@categories.length)
 		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
@@ -14,9 +11,6 @@ class PostsController < InheritedResources::Base
 		@search = Post.search(params[:q])
 		if params[:commit] == "Search"
 			@posts = @search.result
-			puts "** " * 20
-			puts @posts
-			puts "** " * 20
 		else
 			set_posts_scope(params[:category])
 		end
@@ -47,9 +41,6 @@ class PostsController < InheritedResources::Base
 	end
 
 	def show
-		puts "=*=" * 20
-		puts params
-		puts "=*=" * 20
 		@categories = category_list
 		@columns = two_columns?(@categories.length)
 		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
