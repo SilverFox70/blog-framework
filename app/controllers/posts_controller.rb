@@ -62,6 +62,7 @@ class PostsController < InheritedResources::Base
 			render action: "index"
 		end
 		@post = Post.find(params[:id])
+		@comments = @post.comments.all
 	end
 
   private
