@@ -31,7 +31,7 @@
 				<p class="lead"><%= simple_format(@post.content) %></p>
 				<hr>
 				<!-- Post Category -->
-				<p>Category:
+				<p class="well well-small">Category:
 				<%= @post.category %>
 				</p>
 
@@ -43,7 +43,7 @@
 					</p>
 				<% end %>
 
-				<%= link_to 'Back', posts_path %>
+				<%= link_to 'Back', posts_path, class: "btn btn-default" %>
 
 			
 				<!-- Comments form -->
@@ -76,7 +76,7 @@
 					<% end %>
 				</div>
 				<% else %>
-				<div class="comment-buffer">
+				<div class="well comment-buffer">
 					<p class="sgn-com"><%= link_to("Sign in", "/users/sign_in") %> to leave a comment.</p>
 				</div>
 				<% end %>
