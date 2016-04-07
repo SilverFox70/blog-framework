@@ -37,7 +37,10 @@
 
 				<!-- Edit Link if admin signed in -->
 				<% if admin_user_signed_in? %>
-					<%= link_to 'Edit', edit_post_path(@post) %> 
+					<p><strong>Admin Actions: </strong>
+						<%= link_to 'Edit', edit_post_path(@post), class: "btn btn-info" %> 
+						<%= link_to 'Delete', "/posts/#{@post.id}", method: :delete, class: "btn btn-danger",confirm: "Are you sure?" %>
+					</p>
 				<% end %>
 
 				<%= link_to 'Back', posts_path %>
@@ -98,7 +101,7 @@
 									<% end %>
 							<hr>
 						<% if admin_user_signed_in? %>
-							<%= link_to("Delete", destroy_comment_path, method: :delete, data:{ confirm: "Are you sure?"}) %>
+							<%= link_to("Delete", "/comments/#{comment.id}", method: :delete, data:{ confirm: "Are you sure?"}) %>
 						<% end %>
 						</div><!-- /.media -->
 					<% end %>
