@@ -7,6 +7,9 @@
             <div class="col-md-8">
 
                 <p id="notice"><%= notice %></p>
+                <% if !@q_notice.nil? %>
+                  <p class="well imp-notice"><strong><%= @q_notice %></strong></p>
+                <% end %>  
 
                 <h1 class="page-header">
                     Listing Posts

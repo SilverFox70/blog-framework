@@ -7,11 +7,21 @@ class PostsController < InheritedResources::Base
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
+		#if we were passed a query_note from a fruitless search, let the user know
+		@q_notice = params[:query_note] if !params[:query_note].nil?
 		# Set scope of the posts we will look at
 		@search = Post.search(params[:q])
 		if params[:commit] == "Search"
 			@posts = @search.result
+			if @posts.count == 1
+				redirect_to post_path(@posts.first.id)
+			elsif @posts.count == 0
+				query_notice = "We're sorry, but no posts matched your search query."
+				set_posts_scope(params[:category])
+				redirect_to posts_path(:commit => "None", query_note: "#{query_notice}")
+			end
 		else
+			puts "/// Hit post scope ////"
 			set_posts_scope(params[:category])
 		end
 		# if no start params given, then return the 3 most
