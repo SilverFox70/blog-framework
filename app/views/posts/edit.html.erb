@@ -1,12 +1,18 @@
-<% if admin_user_signed_in? %>
-	<h1>Editing Post</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<% if admin_user_signed_in? %>
+				<h1>Editing Post</h1>
 
-	<%= render 'form' %>
-<% else %>
+				<%= render 'form' %>
+			<% else %>
 
-	<p class="forbidden">You are not authorized to view this page. <p>
+				<p class="forbidden">You are not authorized to view this page. </p>
 
-<% end %>
+			<% end %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+			<%= link_to 'Show', @post %> |
+			<%= link_to 'Back', posts_path %>
+		</div><!-- /.col-md-8 -->
+	</div><!-- /.row -->
+</div><!-- /.container -->
