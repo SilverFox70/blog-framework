@@ -27,6 +27,17 @@ class CommentsController < InheritedResources::Base
 		redirect_to post_path(@post.id)
 	end
 
+	def destroy
+		c = Comment.find_by_id(params[:id])
+		# !c.nil? ? comment_author = c.user_id : comment_author = nil
+		# if current_user && current_user.id == comment_author
+		# 	Comment.delete(c.id)
+		# end
+		@post = Post.find(c.post_id)
+		@comments = @post.comments.all
+		redirect_to post_path(c.post_id)
+	end
+
   private
 
     def comment_params
