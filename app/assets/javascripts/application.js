@@ -17,7 +17,6 @@
 //= require_tree .
 
 $(document).ready(function(){
-	console.log("document ready...")
 	jQuery.each(jQuery('textarea#post_content'), function() {
 		if (jQuery(this).data('autoresizeAttached')) return;
 
