@@ -29,13 +29,28 @@ class CommentsController < InheritedResources::Base
 
 	def destroy
 		c = Comment.find_by_id(params[:id])
-		# !c.nil? ? comment_author = c.user_id : comment_author = nil
-		# if current_user && current_user.id == comment_author
-		# 	Comment.delete(c.id)
-		# end
-		@post = Post.find(c.post_id)
+		post_id = c.post_id
+		!c.nil? ? comment_author = c.user_id : comment_author = nil
+		if current_user && current_user.id == comment_author
+			c.destroy
+		end
+		@post = Post.find(post_id)
 		@comments = @post.comments.all
-		redirect_to post_path(c.post_id)
+    respond_to do |format|
+      puts "-" * 40
+      puts "format: #{format}"
+      puts "-" * 40
+      format.html {redirect_to post_path(post_id)}
+      format.json {render json: {:comment_number => params[:id]}}
+    end
+  #   if request.xhr?
+  #     puts "-" * 40
+  #     puts "xhr recognized"
+  #     puts "-" * 40
+		# 	{comment_number: params[:id]}.to_json
+		# else
+		# 	redirect_to post_path(post_id)
+		# end
 	end
 
   private

@@ -56,7 +56,7 @@ var commentDeleteButtonListener = function(){
 		console.log("in the listener")
 		var userConfirm = getConfirmation();
 		if (userConfirm === true){
-			// deleteComment(this)
+			deleteComment(this)
 			console.log("user confirmed deletion.  this = " + this)
 		} else {
 
@@ -71,12 +71,14 @@ var getConfirmation = function(){
 	return confirm("This will permanently delete this comment.  Continue?");
 };
 
-var deleteComment = function(){
+var deleteComment = function(path){
 	$.ajax({
 		method: "DELETE",
-		url: path
+		url: path,
+		dataType: 'json'
 	}).done(function(response){
-		$('.container').html(response);
+		console.log("response from server: " + response.comment_number)
+		$("#comment-" + response.comment_number).remove();
 	}).fail(function(response){
 		console.log("AJAX delete call failed: " + response)
 	});
