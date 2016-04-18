@@ -16,6 +16,7 @@ class CommentsController < InheritedResources::Base
 		!c.nil? ? comment_author = c.user_id : comment_author = nil
 		if current_user && current_user.id == comment_author
 			@comment = Comment.find(params[:id])
+      render "edit"
 		else
 			redirect_to "/users/sign_in"
 		end
@@ -37,20 +38,9 @@ class CommentsController < InheritedResources::Base
 		@post = Post.find(post_id)
 		@comments = @post.comments.all
     respond_to do |format|
-      puts "-" * 40
-      puts "format: #{format}"
-      puts "-" * 40
       format.html {redirect_to post_path(post_id)}
       format.json {render json: {:comment_number => params[:id]}}
     end
-  #   if request.xhr?
-  #     puts "-" * 40
-  #     puts "xhr recognized"
-  #     puts "-" * 40
-		# 	{comment_number: params[:id]}.to_json
-		# else
-		# 	redirect_to post_path(post_id)
-		# end
 	end
 
   private
