@@ -86,11 +86,11 @@
 				<!-- Comment -->
 				<% if !@comments.nil? || @comments.count.zero?%>
 					<% @comments.each do |comment| %>
-						<div class="media">
+						<div class="media"  id="comment-<%= comment.id %>">
 							<a class="pull-left" href="#">
 								<img class="media-object" src="<%= gravatar_url(User.find(comment.user_id).email) %>" alt="">
 							</a>
-									<div class="media-body" id="comment-<%= comment.id %>">
+									<div class="media-body">
 										<h4 class="media-heading"><%= comment.author %>
 										<small><%= comment.created_at.to_formatted_s(:long_ordinal) %></small>
 										</h4>
