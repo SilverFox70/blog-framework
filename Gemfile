@@ -29,6 +29,9 @@ gem 'devise'
 # Use ActiveAdmin for site administration
 gem 'activeadmin', github: 'activeadmin'
 
+#Use Figaro for environment variables
+gem 'figaro'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
