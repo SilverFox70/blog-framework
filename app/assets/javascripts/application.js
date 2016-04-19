@@ -41,6 +41,9 @@ $(document).ready(function(){
 			resizeTextArea(this);
 		}).data('autoresizeAttached', true);
 	});
+	$(".media").on('ajax:success', function(e, data, status, xhr){
+		console.log("this:" + this);
+	});
 });
 
 //-------------------------------------------
@@ -48,6 +51,7 @@ $(document).ready(function(){
 //-------------------------------------------
 var bindListeners = function(){
 	commentDeleteButtonListener();
+	commentCreateButtonListener();
 };
 
 var commentDeleteButtonListener = function(){
@@ -61,6 +65,15 @@ var commentDeleteButtonListener = function(){
 		} else {
 
 		};
+	});
+};
+
+var commentCreateButtonListener = function(){
+	$('.container').on('click', '.crt-btn', function(e){
+		e.preventDefault();
+		console.log("got create button");
+		var form = $('form#new_comment');
+		createComment(form);
 	});
 };
 
@@ -82,4 +95,17 @@ var deleteComment = function(path){
 	}).fail(function(response){
 		console.log("AJAX delete call failed: " + response)
 	});
+};
+
+var createComment = function(form){
+	$.ajax({
+		method: "POST",
+		url: form.attr('action'),
+		data: form.serialize(),
+	}).done(function(response){
+		console.log("server says:" + response);
+		$('.com-container').append(response);
+		$('.crt-btn').removeClass('btn:focus');
+		$('#comment_body').val('');
+	})
 };

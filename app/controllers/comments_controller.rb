@@ -8,7 +8,17 @@ class CommentsController < InheritedResources::Base
 	def create
 		@post = Post.find(params[:post_id])
 		@comment = @post.comments.create(comment_params)
-		redirect_to post_path(@post)
+    puts "%" * 30
+    puts "#{@comment.to_json}"
+    puts "%" * 30
+    # respond_to do |format|
+    #   format.json {render json:@comment}
+    # end
+    if !request.xhr?
+  		redirect_to post_path(@post)
+    else
+      render partial: "comment", locals: { comment: @comment }
+    end
 	end
 
 	def edit
@@ -38,7 +48,6 @@ class CommentsController < InheritedResources::Base
 		@post = Post.find(post_id)
 		@comments = @post.comments.all
     respond_to do |format|
-      format.html {redirect_to post_path(post_id)}
       format.json {render json: {:comment_number => params[:id]}}
     end
 	end

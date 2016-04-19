@@ -16,6 +16,9 @@
  *= require bootstrap
  *= require blog-home
  */
+.crt-btn:focus {
+	outline: 0 none !important;
+}
 
  .search-group {
  	display: inline !important;
@@ -42,4 +45,4 @@
  	padding: 10px;
  }
 
- 
+
