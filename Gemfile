@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.4"
+ruby "2.2.1"
 # For heroku deployment
 gem 'rails_12factor', group: :production
 gem 'puma'
