@@ -1,0 +1,19 @@
+<div class="media"  id="comment-<%= comment.id %>">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="<%= gravatar_url(User.find(comment.user_id).email) %>" alt="">
+    </a>
+            <div class="media-body">
+                <h4 class="media-heading"><%= comment.author %>
+                <small><%= comment.created_at.to_formatted_s(:long_ordinal) %></small>
+                </h4>
+                <p class="lead"><%= simple_format(comment.body) %></p>
+            </div><!-- /.media-body -->
+            <% if current_user && current_user.id == comment.user_id %>
+                <%= link_to("<i class=\"glyphicon glyphicon-pencil\"></i> Edit".html_safe, "/posts/#{@post.id}/comments/#{comment.id}/edit", class: "btn btn-default") %>
+                <a class="btn btn-default del-btn" data-confirm "Are you sure?" href="/comments/<%=comment.id%>"><i class="glyphicon glyphicon-exclamation-sign"></i> Delete</a>
+            <% end %>
+            <% if admin_user_signed_in? %>
+                <a class="btn btn-danger del-btn" data-confirm "Are you sure?" href="/comments/<%=comment.id%>"><i class="glyphicon glyphicon-exclamation-sign"></i> Delete</a>
+            <% end %>
+    <hr>
+</div><!-- /.media -->
