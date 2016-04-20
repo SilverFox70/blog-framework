@@ -1,11 +1,11 @@
 = README
 
-This is a skeleton rails app intended for creating your own blog, just in case you enjoy re-inventing the wheel.  There is Devise authentication for users and admins. When complete, users will be able to sign-in to leave comments while admins will be able to create blog posts and manage users and their comments.
+This is a skeleton rails app intended for creating your own blog, just in case you enjoy re-inventing the wheel.  There is Devise authentication for users and admins. Visitors can register and then leave comments on posts (which they can later delete or edit).  Admins are able to create posts and also manage all comments.  With only a little bit of work, you could allow users access to writing their own blog posts as well, and then you would have the beginning of your own social site.
 
 == A Tour of Your Views and Functionality
 === Blog Home Page - (views/posts/index.html.erb)
 
-Currently this will display excerpts from the three most recent posts based on post.id, not the actual
+Currently this displays excerpts from the three most recent posts based on post.id, not the actual
 created_at time.  "Previous" and "Next" buttons will appear at the bottom of this list as is appropriate,
 allowing you to navigate through the entire list of posts.
 
@@ -23,18 +23,15 @@ Run <tt>rake db:create</tt>
 
 Run <tt>rake db:migrate</tt>
 
-Run <tt>rails g devise:views</tt>
-
-Navigate to <tt>app/views/welcome</tt> and open <tt>index.html.erb</tt> in your text editor.
-For you own sanity, add a "Welcome to rails-blog with auth!" line in that file and save.
+Run <tt>rake db:seed</tt>  The seed file is a little bare bones at the moment.
 
 Start your rails server <tt>rails s</tt>
 
-Point your browser to <tt>localhost:3000</tt> and you should see your message.
+Point your browser to <tt>localhost:3000</tt> and you should actually be directed to the /posts route.  You can always go in and set your own welcome landing page if you want.
 
-To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or open a new bash window (<tt>COMMAND t</tt>)
+To see all of the routes available run <tt>rake routes</tt> on the command line.  You will need to either stop your server or , better yet, open a new bash window (<tt>COMMAND t</tt>)
 
-For ActiveAdmin the gem is set to <tt>gem 'activeadmin', github: 'activeadmin'</tt> which will track the master.
+For ActiveAdmin the gem is set to <tt>gem 'activeadmin', github: 'activeadmin'</tt> which will track the master.  This is already done for you, so don't worry about it.
 
 The ActiveAdmin gem integrates with:
 <tt>gem 'devise'</tt>
@@ -42,28 +39,21 @@ The ActiveAdmin gem integrates with:
 <tt>gem 'draper'</tt>
 <tt>gem 'pundit'</tt>
 
-If you find that the User class is not linked to active_admin, then add the existing User class:
-
-<tt>rails g active_admin:install User</tt>
-
-To create a separate AdminUser class:
-<tt>rails g active-admin:install</tt>
-
-Next, migrate and seed the database:
-<tt>rake db:migrate</tt>
-<tt>rake db:seed</tt>
-<tt>rails s</tt>
+And there are many other gem dependencies, a good portion having to with setting up the app to run
+smoothly on Heroku.
 
 No you can visit <tt>http:/localhost:3000/admin</tt> and login as the default user:
 
 User = admin@example.com
 Password = password
 
-To register and thus manage models through the admin interface:
-<tt>rails g active_admin:resource MyModel</tt>
-
 For more information on ActiveAdmin, please visit: <tt>https://github.com/activeadmin/activeadmin</tt>
+As the Admin, you can add posts to you heart's content.  
 
+__Note__: The pictures for each blog post are sized for 900x300 and there is no fancy code behind the 
+scenes to scale images.  Maybe at some point there will be, but for now, if you want it to look good, size all of your images to those dimensions.
+
+In order to actually deploy, you will need to make use of the figaro gem and the <tt>application.yml</tt> file.  I will eventually set up a wiki to make this easier, but a quick google search should yield the basic info on how to push to github and deploy to heroku without giving away all of your passwords and API keys.
 
 You are now ready to build the rest of your app - Enjoy!
 
