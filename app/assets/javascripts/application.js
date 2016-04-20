@@ -26,7 +26,7 @@ $(document).ready(function(){
 	// bottom of it. Could be made more abstract
 	// to handle any textarea
 	//--------------------------------------------
-	jQuery.each(jQuery('textarea#post_content'), function() {
+	jQuery.each(jQuery('textarea'), function() {
 		if (jQuery(this).data('autoresizeAttached')) return;
 
 		var offset = this.offsetHeight - this.clientHeight;
@@ -125,7 +125,8 @@ var editComment = function(path){
 		console.log("edit path response: " + response.com_id);
 		el = "#p-" + response.com_id
 		elWidth = $(el).width();
-		$(el).replaceWith("<textarea id=\"#p-" + response.com_id + "\">" + response.com_body + "</textarea>");
-		$(el).css('height', 'auto').css('height', el.scrollHeight).css('width', elWidth + "px");
+		$(el).replaceWith("<textarea id=\"p-" + response.com_id + "\">" + response.com_body + "</textarea>");
+		$(el).css('height', 'auto').css('height', el.scrollHeight)
+		$(el).css('width', elWidth + "px");
 	});
 };
