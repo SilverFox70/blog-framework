@@ -1,9 +1,9 @@
 class PostsController < InheritedResources::Base
+	before_action :category_list, only: [:index, :show]
+	before_action :two_columns?, only: [:index, :show]
 
 	def index
-		@categories = category_list
-		@columns = two_columns?(@categories.length)
-		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
+		# @columns ? @split_at = column_size(@categories.length) : @split_at = 3
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
@@ -21,7 +21,6 @@ class PostsController < InheritedResources::Base
 				redirect_to posts_path(:commit => "None", query_note: "#{query_notice}")
 			end
 		else
-			puts "/// Hit post scope ////"
 			set_posts_scope(params[:category])
 		end
 		# if no start params given, then return the 3 most
@@ -50,10 +49,17 @@ class PostsController < InheritedResources::Base
 		end
 	end
 
+	def edit
+		if admin_user_signed_in?
+			@post = Post.find_by_id(params[:id])
+			render "edit"
+		else
+			redirect_to "index"
+		end
+	end
+
 	def show
-		@categories = category_list
-		@columns = two_columns?(@categories.length)
-		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
+		
 		@search = Post.search(params[:q])
 		if params[:commit] == "Search"
 			@posts = @search.result
@@ -68,8 +74,9 @@ class PostsController < InheritedResources::Base
 
   private
 
-  	def two_columns?(number_of_cats)
-  		number_of_cats > 3
+  	def two_columns?
+  		@columns = (@categories.length > 3)
+  		@columns ? @split_at = column_size(@categories.length) : @split_at = 3
   	end
 
   	def column_size(number_of_cats)
@@ -90,14 +97,14 @@ class PostsController < InheritedResources::Base
   	end
 
   	def category_list
-  		cat_list = []
+  		@categories = []
   		posts = Post.all
   		posts.each do |post|
-  			if !cat_list.include?(post.category)
-  				cat_list << post.category
+  			if !@categories.include?(post.category)
+  				@categories << post.category
   			end
 	  	end
-	  	cat_list
+	  	@categories
   	end
 
   	def get_upper_limit

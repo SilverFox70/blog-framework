@@ -19,7 +19,6 @@
 
 $(document).ready(function(){
 	bindListeners();
-
 	//--------------------------------------------
 	// This function autoresizes textareas that
 	// have id="post_content" when the user either
