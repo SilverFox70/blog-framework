@@ -9,7 +9,7 @@ class CommentsController < InheritedResources::Base
 		@post = Post.find(params[:post_id])
 		@comment = @post.comments.create(comment_params)
 	    if !request.xhr?
-	  		render post_path(@post)
+	  	  render post_path(@post)
 	    else
 	      render partial: "comment", locals: { comment: @comment }
 	    end
