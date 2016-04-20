@@ -42,7 +42,7 @@ $(document).ready(function(){
 		}).data('autoresizeAttached', true);
 	});
 	$(".media").on('ajax:success', function(e, data, status, xhr){
-		console.log("this:" + this);
+		console.log("this ujs call for success:" + this);
 	});
 });
 
@@ -52,18 +52,17 @@ $(document).ready(function(){
 var bindListeners = function(){
 	commentDeleteButtonListener();
 	commentCreateButtonListener();
+	commentEditButtonListener();
 };
 
 var commentDeleteButtonListener = function(){
 	$('.container').on('click', '.del-btn', function(e){
 		e.preventDefault();
-		console.log("in the listener")
 		var userConfirm = getConfirmation();
 		if (userConfirm === true){
-			deleteComment(this)
-			console.log("user confirmed deletion.  this = " + this)
+			deleteComment(this);
 		} else {
-
+			// Do anything else?
 		};
 	});
 };
@@ -71,9 +70,16 @@ var commentDeleteButtonListener = function(){
 var commentCreateButtonListener = function(){
 	$('.container').on('click', '.crt-btn', function(e){
 		e.preventDefault();
-		console.log("got create button");
 		var form = $('form#new_comment');
 		createComment(form);
+	});
+};
+
+var commentEditButtonListener = function(){
+	$('.container').on('click', '.edit-btn', function(e){
+		e.preventDefault();
+		console.log("in the edit listener. this = " + this);
+		editComment(this);
 	});
 };
 
@@ -107,5 +113,19 @@ var createComment = function(form){
 		$('.com-container').append(response);
 		$('.crt-btn').removeClass('btn:focus');
 		$('#comment_body').val('');
-	})
+	});
+};
+
+var editComment = function(path){
+	$.ajax({
+		method: 'GET',
+		url: path,
+		dataType: 'json'
+	}).done(function(response){
+		console.log("edit path response: " + response.com_id);
+		el = "#p-" + response.com_id
+		elWidth = $(el).width();
+		$(el).replaceWith("<textarea id=\"#p-" + response.com_id + "\">" + response.com_body + "</textarea>");
+		$(el).css('height', 'auto').css('height', el.scrollHeight).css('width', elWidth + "px");
+	});
 };

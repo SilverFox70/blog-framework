@@ -3,7 +3,6 @@ class PostsController < InheritedResources::Base
 	before_action :two_columns?, only: [:index, :show]
 
 	def index
-		# @columns ? @split_at = column_size(@categories.length) : @split_at = 3
 		# @limit will be set to true of we are looking
 		# at the last available post
 		@limit = false
@@ -59,7 +58,6 @@ class PostsController < InheritedResources::Base
 	end
 
 	def show
-		
 		@search = Post.search(params[:q])
 		if params[:commit] == "Search"
 			@posts = @search.result
