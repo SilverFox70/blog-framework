@@ -16,6 +16,10 @@
  *= require bootstrap
  *= require blog-home
  */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ 
 .crt-btn:focus {
 	outline: 0 none !important;
 }
