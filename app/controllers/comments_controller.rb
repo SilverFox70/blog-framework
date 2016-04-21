@@ -51,10 +51,11 @@ class CommentsController < InheritedResources::Base
 	def update
 		@comment = Comment.find_by_id(params[:id])
 		@comment.update(body: params[:body])
-		puts "*" * 50
-		puts @comment.id
 		if request.xhr?
-			render partial: "comment", locals: { comment: @comment }
+			puts "*" * 50
+			puts @comment.id
+			# render partial: "comment", locals: { comment: @comment }
+			render json: @comment
 		else
 			render post_path(Post.find_by_id(@comment.post_id))
 		end

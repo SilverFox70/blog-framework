@@ -137,7 +137,7 @@ var editComment = function(path){
 		$(el).replaceWith( "<textarea class=\"com-body\" id=\"p-" + response.com_id + "\">" + response.com_body + "</textarea>");
 		$(el).css('height', 'auto').css('height', el.scrollHeight + 40)
 		$(el).css('width', elWidth + "px");
-		btn = "#comment-" + response.com_id + " .edit-btn"
+		var btn = "#comment-" + response.com_id + " .edit-btn";
 		$(btn).css('background-color', 'LightGreen');
 		$(btn).text('Save Edit');
 		$(btn).addClass("update-btn");
@@ -149,13 +149,21 @@ var editComment = function(path){
 
 var updateComment = function(path){
 	c_id = $(path).data('com_id');
-	c_body = $("#p-" + c_id).text();
+	c_body = $(".com-container #p-" + c_id).text();
 	var content = { body: c_body };
 	$.ajax({
 		method: 'PATCH',
 		url: path,
 		data: content ,
 	}).done(function(response){
-		$("#p-" + c_id).replace(response);
+		console.log("response: " + response.body);
+		$("#p-" + c_id).replaceWith("<div class=\"com-body\" id=\"p-" + c_id +"\">" + response.body + "</div>");
+		var btn = "#comment-" + c_id + " .update-btn";
+		$(btn).css('background-color', 'white');
+		$(btn).append("<i class=\"glyphicon glyphicon-pencil\"></i>");
+		$(btn).text("Edit");
+		$(btn).attr('href', '/posts/' + response.post_id + '/comments/' + response.id + '/edit');
+		$(btn).addClass("edit-btn");
+		$(btn).removeClass("update-btn");
 	})
 };
