@@ -139,7 +139,8 @@ var editComment = function(path){
 		$(el).css('width', elWidth + "px");
 		var btn = "#comment-" + response.com_id + " .edit-btn";
 		$(btn).css('background-color', 'LightGreen');
-		$(btn).text('Save Edit');
+		$(btn).text(' Save');
+		$(btn).prepend('<i class="glyphicon glyphicon-ok"></i>');
 		$(btn).addClass("update-btn");
 		$(btn).attr('href', '/comments/' + response.com_id);
 		$(btn).data('com_id', response.com_id);
@@ -149,7 +150,7 @@ var editComment = function(path){
 
 var updateComment = function(path){
 	c_id = $(path).data('com_id');
-	c_body = $(".com-container #p-" + c_id).text();
+	c_body = $(".com-container #p-" + c_id).val();
 	var content = { body: c_body };
 	$.ajax({
 		method: 'PATCH',
@@ -160,8 +161,9 @@ var updateComment = function(path){
 		$("#p-" + c_id).replaceWith("<div class=\"com-body\" id=\"p-" + c_id +"\">" + response.body + "</div>");
 		var btn = "#comment-" + c_id + " .update-btn";
 		$(btn).css('background-color', 'white');
-		$(btn).append("<i class=\"glyphicon glyphicon-pencil\"></i>");
-		$(btn).text("Edit");
+		icon = '<i class="glyphicon glyphicon-pencil"></i>'
+		$(btn).text(" Edit");
+		$(btn).prepend(icon);
 		$(btn).attr('href', '/posts/' + response.post_id + '/comments/' + response.id + '/edit');
 		$(btn).addClass("edit-btn");
 		$(btn).removeClass("update-btn");
