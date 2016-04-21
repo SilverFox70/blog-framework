@@ -16,11 +16,13 @@ class CommentsController < InheritedResources::Base
 	end
 
 	def edit
-		c = Comment.find_by_id(params[:id])
-		!c.nil? ? comment_author = c.user_id : comment_author = nil
+		@comment = Comment.find_by_id(params[:id])
+		!@comment.nil? ? comment_author = @comment.user_id : comment_author = nil
 		if current_user && current_user.id == comment_author
-		  @comment = Comment.find(params[:id])
-	      render "edit"
+		  respond_to do |format|
+		  	format.html
+		  	format.json {render json: {:com_id => @comment.id, :com_body => @comment.body} }
+		  end	
 		else
 		  redirect_to "/users/sign_in"
 		end
@@ -41,9 +43,26 @@ class CommentsController < InheritedResources::Base
 		end
 		@post = Post.find(post_id)
 		@comments = @post.comments.all
-    respond_to do |format|
-      format.json {render json: {:comment_number => params[:id]}}
-    end
+	    respond_to do |format|
+	      format.json {render json: {:comment_number => params[:id]}}
+	    end
+	end
+
+	def update
+		@comment = Comment.find_by_id(params[:id])
+		@comment.update(body: params[:body])
+		if request.xhr?
+			puts "*" * 50
+			puts @comment.id
+			# render partial: "comment", locals: { comment: @comment }
+			render json: @comment
+		else
+			render post_path(Post.find_by_id(@comment.post_id))
+		end
+		# respond_to do |format|
+		# 	format.html
+		# 	format.json { render partial: "comment", locals: { comment: c}}
+		# end
 	end
 
   private

@@ -42,7 +42,7 @@ $(document).ready(function(){
 		}).data('autoresizeAttached', true);
 	});
 	$(".media").on('ajax:success', function(e, data, status, xhr){
-		console.log("this:" + this);
+		console.log("this ujs call for success:" + this);
 	});
 });
 
@@ -52,18 +52,18 @@ $(document).ready(function(){
 var bindListeners = function(){
 	commentDeleteButtonListener();
 	commentCreateButtonListener();
+	commentEditButtonListener();
+	commentUpdateButtonListener();
 };
 
 var commentDeleteButtonListener = function(){
 	$('.container').on('click', '.del-btn', function(e){
 		e.preventDefault();
-		console.log("in the listener")
 		var userConfirm = getConfirmation();
 		if (userConfirm === true){
-			deleteComment(this)
-			console.log("user confirmed deletion.  this = " + this)
+			deleteComment(this);
 		} else {
-
+			// Do anything else?
 		};
 	});
 };
@@ -71,9 +71,24 @@ var commentDeleteButtonListener = function(){
 var commentCreateButtonListener = function(){
 	$('.container').on('click', '.crt-btn', function(e){
 		e.preventDefault();
-		console.log("got create button");
 		var form = $('form#new_comment');
 		createComment(form);
+	});
+};
+
+var commentEditButtonListener = function(){
+	$('.container').on('click', '.edit-btn', function(e){
+		e.preventDefault();
+		console.log("in the edit listener. this = " + this);
+		editComment(this);
+	});
+};
+
+var commentUpdateButtonListener = function(){
+	$('.container').on('click', '.update-btn', function(e){
+		e.preventDefault();
+		console.log("e: " + e + "  this= " + this + "  this data: " + $(this).data('com_id'));
+		updateComment(this);
 	});
 };
 
@@ -107,5 +122,50 @@ var createComment = function(form){
 		$('.com-container').append(response);
 		$('.crt-btn').removeClass('btn:focus');
 		$('#comment_body').val('');
+	});
+};
+
+var editComment = function(path){
+	$.ajax({
+		method: 'GET',
+		url: path,
+		dataType: 'json'
+	}).done(function(response){
+		console.log("edit path response: " + response);
+		el = "#p-" + response.com_id
+		elWidth = $(el).width();
+		$(el).replaceWith( "<textarea class=\"com-body\" id=\"p-" + response.com_id + "\">" + response.com_body + "</textarea>");
+		$(el).css('height', 'auto').css('height', el.scrollHeight + 40)
+		$(el).css('width', elWidth + "px");
+		var btn = "#comment-" + response.com_id + " .edit-btn";
+		$(btn).css('background-color', 'LightGreen');
+		$(btn).text(' Save');
+		$(btn).prepend('<i class="glyphicon glyphicon-ok"></i>');
+		$(btn).addClass("update-btn");
+		$(btn).attr('href', '/comments/' + response.com_id);
+		$(btn).data('com_id', response.com_id);
+		$(btn).removeClass("edit-btn");
+	});
+};
+
+var updateComment = function(path){
+	c_id = $(path).data('com_id');
+	c_body = $(".com-container #p-" + c_id).val();
+	var content = { body: c_body };
+	$.ajax({
+		method: 'PATCH',
+		url: path,
+		data: content ,
+	}).done(function(response){
+		console.log("response: " + response.body);
+		$("#p-" + c_id).replaceWith("<div class=\"com-body\" id=\"p-" + c_id +"\">" + response.body + "</div>");
+		var btn = "#comment-" + c_id + " .update-btn";
+		$(btn).css('background-color', 'white');
+		icon = '<i class="glyphicon glyphicon-pencil"></i>'
+		$(btn).text(" Edit");
+		$(btn).prepend(icon);
+		$(btn).attr('href', '/posts/' + response.post_id + '/comments/' + response.id + '/edit');
+		$(btn).addClass("edit-btn");
+		$(btn).removeClass("update-btn");
 	})
 };

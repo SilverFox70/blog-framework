@@ -6,10 +6,10 @@
                 <h4 class="media-heading"><%= comment.author %>
                 <small><%= comment.created_at.to_formatted_s(:long_ordinal) %></small>
                 </h4>
-                <p class="lead"><%= simple_format(comment.body) %></p>
+                <div class="com-body" id="p-<%= comment.id %>"><%= simple_format(comment.body) %></div>
             </div><!-- /.media-body -->
             <% if current_user && current_user.id == comment.user_id %>
-                <%= link_to("<i class=\"glyphicon glyphicon-pencil\"></i> Edit".html_safe, "/posts/#{@post.id}/comments/#{comment.id}/edit", class: "btn btn-default") %>
+                <a class="btn btn-default edit-btn" href="/posts/<%=@post.id%>/comments/<%=comment.id%>/edit"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
                 <a class="btn btn-default del-btn" data-confirm "Are you sure?" href="/comments/<%=comment.id%>"><i class="glyphicon glyphicon-exclamation-sign"></i> Delete</a>
             <% end %>
             <% if admin_user_signed_in? %>
