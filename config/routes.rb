@@ -6,7 +6,29 @@ Rails.application.routes.draw do
     
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
+
+  # users/registrations_controller.rb
+  class User::RegistrationsController < Devise::RegistrationsController
+    protected
+      def after_sign_up_path_for(resource)
+        signed_in_root_path(resource)
+      end
+
+      def after_update_path_for(resource)
+        signed_in_root_path(resource)
+      end
+  end
+
+  # users/passwords_controller.rb
+  class User::PasswordsController < Devise::PasswordsController
+    protected
+      def after_resetting_password_path_for(resource)
+        signed_in_root_path(resource)
+      end
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
