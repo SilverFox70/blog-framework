@@ -6,7 +6,7 @@
                 <h4 class="media-heading"><%= comment.author %>
                 <small><%= comment.created_at.to_formatted_s(:long_ordinal) %></small>
                 </h4>
-                <div class="com-body" id="p-<%=comment.id%>"><%= simple_format(comment.body) %></div>
+                <div class="com-body" id="p-<%= comment.id %>"><%= simple_format(comment.body) %></div>
             </div><!-- /.media-body -->
             <% if current_user && current_user.id == comment.user_id %>
                 <a class="btn btn-default edit-btn" href="/posts/<%=@post.id%>/comments/<%=comment.id%>/edit"><i class="glyphicon glyphicon-pencil"></i> Edit</a>

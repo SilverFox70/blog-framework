@@ -26,7 +26,7 @@ $(document).ready(function(){
 	// bottom of it. Could be made more abstract
 	// to handle any textarea
 	//--------------------------------------------
-	jQuery.each(jQuery('textarea'), function() {
+	jQuery.each(jQuery('textarea#post_content'), function() {
 		if (jQuery(this).data('autoresizeAttached')) return;
 
 		var offset = this.offsetHeight - this.clientHeight;
@@ -53,6 +53,7 @@ var bindListeners = function(){
 	commentDeleteButtonListener();
 	commentCreateButtonListener();
 	commentEditButtonListener();
+	commentUpdateButtonListener();
 };
 
 var commentDeleteButtonListener = function(){
@@ -80,6 +81,14 @@ var commentEditButtonListener = function(){
 		e.preventDefault();
 		console.log("in the edit listener. this = " + this);
 		editComment(this);
+	});
+};
+
+var commentUpdateButtonListener = function(){
+	$('.container').on('click', '.update-btn', function(e){
+		e.preventDefault();
+		console.log("e: " + e + "  this= " + this + "  this data: " + $(this).data('com_id'));
+		updateComment(this);
 	});
 };
 
@@ -122,11 +131,31 @@ var editComment = function(path){
 		url: path,
 		dataType: 'json'
 	}).done(function(response){
-		console.log("edit path response: " + response.com_id);
+		console.log("edit path response: " + response);
 		el = "#p-" + response.com_id
 		elWidth = $(el).width();
-		$(el).replaceWith("<textarea id=\"p-" + response.com_id + "\">" + response.com_body + "</textarea>");
-		$(el).css('height', 'auto').css('height', el.scrollHeight)
+		$(el).replaceWith( "<textarea class=\"com-body\" id=\"p-" + response.com_id + "\">" + response.com_body + "</textarea>");
+		$(el).css('height', 'auto').css('height', el.scrollHeight + 40)
 		$(el).css('width', elWidth + "px");
+		btn = "#comment-" + response.com_id + " .edit-btn"
+		$(btn).css('background-color', 'LightGreen');
+		$(btn).text('Save Edit');
+		$(btn).addClass("update-btn");
+		$(btn).attr('href', '/comments/' + response.com_id);
+		$(btn).data('com_id', response.com_id);
+		$(btn).removeClass("edit-btn");
 	});
+};
+
+var updateComment = function(path){
+	c_id = $(path).data('com_id');
+	c_body = $("#p-" + c_id).text();
+	var content = { body: c_body };
+	$.ajax({
+		method: 'PATCH',
+		url: path,
+		data: content ,
+	}).done(function(response){
+		$("#p-" + c_id).replace(response);
+	})
 };

@@ -21,9 +21,8 @@ class CommentsController < InheritedResources::Base
 		if current_user && current_user.id == comment_author
 		  respond_to do |format|
 		  	format.html
-		  	format.json {render json: {:com_id => @comment.id, :com_body => @comment.body}}
+		  	format.json {render json: {:com_id => @comment.id, :com_body => @comment.body} }
 		  end	
-	      # render "edit"
 		else
 		  redirect_to "/users/sign_in"
 		end
@@ -47,6 +46,22 @@ class CommentsController < InheritedResources::Base
 	    respond_to do |format|
 	      format.json {render json: {:comment_number => params[:id]}}
 	    end
+	end
+
+	def update
+		@comment = Comment.find_by_id(params[:id])
+		@comment.update(body: params[:body])
+		puts "*" * 50
+		puts @comment.id
+		if request.xhr?
+			render partial: "comment", locals: { comment: @comment }
+		else
+			render post_path(Post.find_by_id(@comment.post_id))
+		end
+		# respond_to do |format|
+		# 	format.html
+		# 	format.json { render partial: "comment", locals: { comment: c}}
+		# end
 	end
 
   private
