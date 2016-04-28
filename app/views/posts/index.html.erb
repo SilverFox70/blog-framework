@@ -13,7 +13,11 @@
 
                 <h1 class="page-header">
                     Listing Posts
-                    <small>Secondary Text</small>
+                    <% if @selected_category == "none" || @selected_category == "All" %>
+                      <small>All Categories</small>
+                    <% else %>
+                      <small>Category: <%= @selected_category %></small>
+                    <% end %>
                 </h1>
 
                 <!-- Blog Post List -->
@@ -30,19 +34,33 @@
                   <hr>
                   <p><%= sanitize(excerpt(post.content," ", radius: 240))%></p>
                   <a class="btn btn-primary" href="posts/<%=post.id%>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                  <!-- Post Category -->
+                  <p>Category:<%= post.category %></p>
+
+                  <hr>
+
+                  <% if admin_user_signed_in? %>
+                    <p><strong>Admin Actions: </strong>
+                      <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %> 
+                      <%= link_to 'Delete', "/posts/#{post.id}", method: :delete, class: "btn btn-danger",confirm: "Are you sure?" %>
+                    </p>
+                  <% end %>
+                  <hr>
                 <% end %>
                 <hr>
 
                 <!-- Pager -->
+                <!-- Pager -->
                 <ul class="pager">
-                  <% if @start > 1 && @posts.length > 2%>
+                  <% if !@low_limit %>
                     <li class="previous">
-                      <%= link_to raw("&larr; Older"), posts_path(start: @start - 3) %>
+                      <%= link_to raw("&larr; Older"), posts_path(offset: @offset + 3) %>
                     </li>
                   <% end %>
-                  <% if !@limit %>
+                  <% if !@up_limit %>
                     <li class="next">
-                      <%= link_to raw("Newer &rarr;"), posts_path(start: @start + 3) %>
+                      <%= link_to raw("Newer &rarr;"), posts_path(offset: @offset - 3) %>
                     </li>
                   <% end %>
                 </ul>
@@ -50,6 +68,7 @@
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
+            <! This whole section can be moved into one or more partials >
             <div class="col-md-4">
 
                 <!-- Blog Search Well -->
@@ -110,5 +129,5 @@
 <br>
 
 <% if admin_user_signed_in? %>
-  <%= link_to 'New Post', new_post_path %>
+  <%= link_to 'New Post', new_post_path, class: "btn btn-warning" %>
 <% end %>
